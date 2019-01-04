@@ -5,10 +5,11 @@
 メッセージとファイルを受信するためのサーバクラス
 """
 
+
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.1"
-__date__="2019/01/04"
+__version__="1.2"
+__date__="2019/01/05"
 
 import SocketProcessor
 import socket,threading
@@ -32,7 +33,7 @@ class Server():
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         #ポートをバインド
-        self.socket.bind((socket.gethostname(),11235))
+        self.socket.bind(("",11235))
 
     def Run(self):
         """

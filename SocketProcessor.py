@@ -7,8 +7,8 @@
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.0"
-__date__="2019/01/03"
+__version__="1.2"
+__date__="2019/01/05"
 
 import GUIProcessor,MessageProcessor,UserManager
 
@@ -78,7 +78,7 @@ class SocketProcessor():
             #受信するかをユーザに尋ねる
             if "Yes"==self.gp.DialogBox(data+"[bytes]のファイルを受信しますか?","YesNo"):
                 #受信記録を保存
-                self.mp.addMessage(username,data+"[bytes]のファイルを受信")
+                self.mp.addMessage(username,data+"[bit]のファイルを受信")
                 
                 #送信要求
                 s.send("SEND".encode("utf-8"))
@@ -110,6 +110,9 @@ class SocketProcessor():
 
                 #ダウンロード完了通知
                 self.gp.DialogBox("受信完了","Yes")
+            else :
+                #送信拒否要求
+                s.send("DONOTSEND".encode("utf-8"))
 
             #ソケットを閉じる
             s.close()

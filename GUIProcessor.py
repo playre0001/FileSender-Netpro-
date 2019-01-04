@@ -7,8 +7,8 @@ GUIの表示を管理するクラス
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.1"
-__date__="2019/01/04"
+__version__="1.2"
+__date__="2019/01/05"
 
 import MessageProcessor,ClientProcessor,UserManager,InstanceManager
 
@@ -175,6 +175,8 @@ class GUIProcessor():
             while not self.dialog_end:
                 pass
             
+            self.dialog_end=False
+
             return "Yes"
 
         elif str(type).lower()=="yesno":
@@ -188,12 +190,14 @@ class GUIProcessor():
             while not self.dialog_end:
                 pass
 
+            self.dialog_end=False
+
             if self.dialog_return:
+                self.dialog_return=None
                 return "Yes"
             else:
+                self.dialog_return=None
                 return "No"
-
-            self.dialog_return=None
 
         elif str(type).lower()=="err":
             #DialogBox用のデータを格納
@@ -206,6 +210,8 @@ class GUIProcessor():
             while not self.dialog_end:
                 pass
             
+            self.dialog_end=False
+
             return "Yes"
 
         return ""

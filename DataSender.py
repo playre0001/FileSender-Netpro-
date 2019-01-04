@@ -67,22 +67,25 @@ class DataSender():
 
         #名前の送信
         s.send(self.username.encode("utf-8"))
-        s.recv(1024)
+        a=s.recv(1024)
         
         #公開鍵の送信
         s.send(self.publickey)
-        s.recv(1024)
+        b=s.recv(1024)
 
         #データタイプの送信
         s.send(self.datatype.encode("utf-8"))
-        s.recv(1024)
+        c=s.recv(1024)
 
         #メッセージの送信
         s.send(self.filesize.encode("utf-8"))
         
         #メッセージの受信
-        msg=s.recv(1024).decode("utf-8")
-
+        msg=""
+        
+        while not msg:
+            msg=s.recv(1024).decode("utf-8")
+        
         #送信要求の場合
         if msg=="SEND":
             #ファイルを開く
@@ -99,7 +102,7 @@ class DataSender():
                     s.send(msg);
                 #送信終了を送信
                 s.send("END".encode("utf-8"))
-
+                
         #暗号化ファイルの削除
         os.remove(self.data)
         
