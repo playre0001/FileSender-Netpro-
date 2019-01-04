@@ -7,8 +7,8 @@ GUIの表示を管理するクラス
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.0"
-__date__="2019/01/03"
+__version__="1.1"
+__date__="2019/01/04"
 
 import MessageProcessor,ClientProcessor,UserManager,InstanceManager
 
@@ -261,6 +261,13 @@ class GUIProcessor():
             self.dialog_message=None
             self.dialog_input=False
             self.dialog_end=True
+
+        #ユーザの更新
+        users=self.im.um.getUserList()
+
+        if not len(users)==self.listbox1.size(): #ユーザ一覧の長さが表示しているものと違う場合
+            for i in range(0,len(users)-self.listbox1.size()):
+                self.listbox1.insert(self.listbox1.size()+i,users[self.listbox1.size()+i])
 
         #カレントユーザ変更の処理
         if not 1==self.listbox1.selection_includes(self.currentId):

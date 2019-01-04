@@ -7,8 +7,8 @@
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.0"
-__date__="2019/01/03"
+__version__="1.1"
+__date__="2019/01/04"
 
 import os
 
@@ -62,7 +62,10 @@ class MessageProcessor():
         time=datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
         #変数にデータを追加
-        self.usermessage[username]+=[time+","+message]
+        if not username in self.usermessage:
+            self.usermessage[username]=[time+","+message]
+        else:
+            self.usermessage[username]+=[time+","+message]
 
         #メッセージをログに追加
         with open("UserMessages/"+username+".msg","a") as fp:

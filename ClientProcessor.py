@@ -7,8 +7,8 @@
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.0"
-__date__="2019/01/03"
+__version__="1.1"
+__date__="2019/01/04"
 
 import DataSender,GUIProcessor
 
@@ -48,6 +48,10 @@ class ClientProcessor():
             #ユーザからユーザ名を入力してもらう
             tkinter.messagebox.showinfo(title="Information",message="アプリケーションファイルが存在しません")
             USERNAME=ts.askstring("Input Box","自身のユーザ名を入力してください")
+
+            #何か入力されるまで待機
+            while not USERNAME:
+                USERNAME=ts.askstring("Input Box","自身のユーザ名を入力してください")
 
             #公開鍵と秘密鍵を生成
             random_func=Random.new().read
@@ -131,6 +135,7 @@ class ClientProcessor():
 
         #引数の例外処理
         if not(exists(filepath) and isfile(filepath)):
+            tkinter.messagebox.showinfo(title="Information",message="ファイルが存在しません")
             return None                     #例外処理：ファイルが存在しない場合
 
         #暗号化ファイル名の作成
