@@ -7,8 +7,8 @@
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.0"
-__date__="2018/12/22"
+__version__="1.1"
+__date__="2019/01/04"
 
 import SocketProcessor
 import socket,threading
@@ -32,7 +32,7 @@ class Server():
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         #ポートをバインド
-        self.socket.bind(("localhost",11235))
+        self.socket.bind((socket.gethostname(),11235))
 
     def Run(self):
         """
