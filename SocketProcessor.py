@@ -7,7 +7,7 @@
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.2"
+__version__="2.0"
 __date__="2019/01/05"
 
 import GUIProcessor,MessageProcessor,UserManager
@@ -83,6 +83,19 @@ class SocketProcessor():
                 #送信要求
                 s.send("SEND".encode("utf-8"))
                 
+                #拡張子の受信
+                extension=""
+
+                while not extension:
+                    extension=s.recv(1024).decode("utf-8")
+                
+                if extension=="__NONE_EXTENSION__":
+                    #拡張子が存在しない場合の処理
+                    extension=""
+
+                #拡張子受信完了通知を送信
+                s.send("__RECV_EXTENSION__".encode("utf-8"))
+                
                 #復号化の準備
                 cipher=PKCS1_OAEP.new(RSA.importKey(publicKey))
 
@@ -96,7 +109,7 @@ class SocketProcessor():
                     os.mkdir("DownloadFiles")
 
                 #ダウンロードファイルを開く
-                with open("DownloadFiles/"+username+"_"+datetime.now().strftime("%Y_%m_%d_%H_%M_%S")+".dl","wb") as fp:
+                with open("DownloadFiles/"+username+"_"+datetime.now().strftime("%Y_%m_%d_%H_%M_%S")+"."+extension,"wb") as fp:
                     while True:
                         #256bytesずつファイルを受信
                         msg=s.recv(256)

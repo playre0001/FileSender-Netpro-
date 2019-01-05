@@ -7,7 +7,7 @@
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.1"
+__version__="2.0"
 __date__="2019/01/04"
 
 import DataSender,GUIProcessor
@@ -139,7 +139,7 @@ class ClientProcessor():
             return None                     #例外処理：ファイルが存在しない場合
 
         #暗号化ファイル名の作成
-        cipher_filename=datetime.now().strftime("%Y_%m_%d_%H_%M_%S")+".cipfile"
+        cipher_filename=datetime.now().strftime("%Y_%m_%d_%H_%M_%S")+"."+filepath.split(".")[1]
         
         #暗号化の準備
         cipher=PKCS1_OAEP.new(RSA.importKey(self.PRIVATE_PEM))

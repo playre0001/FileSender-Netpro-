@@ -7,7 +7,7 @@
 
 __auther__="Daisuke Kuwahara<mail : abcexe1@gmail.com>"
 __status__="Student"
-__version__="1.0"
+__version__="2.0"
 __date__="2019/01/01"
 
 import threading
@@ -88,6 +88,19 @@ class DataSender():
         
         #送信要求の場合
         if msg=="SEND":
+            #拡張子の送信
+            if not self.data.split(".")[1]:
+                #拡張子が存在しない場合
+                s.send("__NONE_EXTENSION__".encode("utf-8"))
+            else:
+                s.send(self.data.split(".")[1].encode("utf-8"))
+
+            #拡張子受信通知待機
+            msg=""
+
+            while not msg=="__RECV_EXTENSION__":
+                msg=s.recv(1024).decode("utf-8")
+            
             #ファイルを開く
             with open(self.data,"rb") as fp:
                 while True:
